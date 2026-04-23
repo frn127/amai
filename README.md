@@ -1,0 +1,2 @@
+# amai
+amai la cuki
