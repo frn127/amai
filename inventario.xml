@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="inventario.xsl"?>
+<inventario>
+
+  <dispositivo>
+    <id>001</id>
+    <tipo>Router</tipo>
+    <marca>Cisco</marca>
+    <modelo>ISR 4331</modelo>
+    <precio>1250.00</precio>
+  </dispositivo>
+
+  <dispositivo>
+    <id>002</id>
+    <tipo>Switch</tipo>
+    <marca>Cisco</marca>
+    <modelo>Catalyst 2960-X</modelo>
+    <precio>895.00</precio>
+  </dispositivo>
+
+  <dispositivo>
+    <id>003</id>
+    <tipo>Servidor</tipo>
+    <marca>Dell</marca>
+    <modelo>PowerEdge R740</modelo>
+    <precio>4500.00</precio>
+  </dispositivo>
+
+  <dispositivo>
+    <id>004</id>
+    <tipo>Router</tipo>
+    <marca>MikroTik</marca>
+    <modelo>CCR2004-1G-12S+2XS</modelo>
+    <precio>630.00</precio>
+  </dispositivo>
+
+  <dispositivo>
+    <id>005</id>
+    <tipo>Switch</tipo>
+    <marca>HP</marca>
+    <modelo>ProCurve 2530-48G</modelo>
+    <precio>720.00</precio>
+  </dispositivo>
+
+  <dispositivo>
+    <id>006</id>
+    <tipo>Firewall</tipo>
+    <marca>Fortinet</marca>
+    <modelo>FortiGate 60F</modelo>
+    <precio>980.00</precio>
+  </dispositivo>
+
+  <dispositivo>
+    <id>007</id>
+    <tipo>Punto de Acceso</tipo>
+    <marca>Ubiquiti</marca>
+    <modelo>UniFi AP-AC-Pro</modelo>
+    <precio>149.00</precio>
+  </dispositivo>
+
+  <dispositivo>
+    <id>008</id>
+    <tipo>Servidor</tipo>
+    <marca>HPE</marca>
+    <modelo>ProLiant DL360 Gen10</modelo>
+    <precio>5200.00</precio>
+  </dispositivo>
+
+</inventario>
