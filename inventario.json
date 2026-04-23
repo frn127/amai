@@ -1,0 +1,60 @@
+{
+  "inventario": [
+    {
+      "id": "001",
+      "tipo": "Router",
+      "marca": "Cisco",
+      "modelo": "ISR 4331",
+      "precio": 1250.00
+    },
+    {
+      "id": "002",
+      "tipo": "Switch",
+      "marca": "Cisco",
+      "modelo": "Catalyst 2960-X",
+      "precio": 890.00
+    },
+    {
+      "id": "003",
+      "tipo": "Servidor",
+      "marca": "Dell",
+      "modelo": "PowerEdge R740",
+      "precio": 4500.00
+    },
+    {
+      "id": "004",
+      "tipo": "Firewall",
+      "marca": "Fortinet",
+      "modelo": "FortiGate 100F",
+      "precio": 2100.00
+    },
+    {
+      "id": "005",
+      "tipo": "Access Point",
+      "marca": "Ubiquiti",
+      "modelo": "UniFi AP AC Pro",
+      "precio": 149.00
+    },
+    {
+      "id": "006",
+      "tipo": "Switch",
+      "marca": "HP",
+      "modelo": "ProCurve 2530-48G",
+      "precio": 670.00
+    },
+    {
+      "id": "007",
+      "tipo": "Router",
+      "marca": "MikroTik",
+      "modelo": "CCR2004-1G-12S+2XS",
+      "precio": 520.00
+    },
+    {
+      "id": "008",
+      "tipo": "NAS",
+      "marca": "Synology",
+      "modelo": "DS1821+",
+      "precio": 880.00
+    }
+  ]
+}
