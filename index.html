@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Proyecto Dual Hardware</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --c-bg:      #03060f;
+      --c-grid:    rgba(0, 200, 255, 0.045);
+      --c-a:       #00c8ff;
+      --c-b:       #ff3c6e;
+      --c-text:    #e8f0ff;
+      --c-muted:   #5a6a8a;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      background: var(--c-bg);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--c-text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* ── Fondo: rejilla perspectiva ── */
+    .grid-floor {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--c-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--c-grid) 1px, transparent 1px);
+      background-size: 60px 60px;
+      transform: perspective(600px) rotateX(55deg) scale(2.5) translateY(18%);
+      transform-origin: center bottom;
+      z-index: 0;
+      opacity: 0.7;
+    }
+
+    /* ── Resplandores ambientales ── */
+    .glow {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      z-index: 0;
+      animation: pulse 6s ease-in-out infinite alternate;
+    }
+    .glow-a {
+      width: 520px; height: 520px;
+      background: radial-gradient(circle, rgba(0,200,255,0.18) 0%, transparent 70%);
+      top: -120px; left: -140px;
+    }
+    .glow-b {
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, rgba(255,60,110,0.16) 0%, transparent 70%);
+      bottom: -100px; right: -120px;
+      animation-delay: 3s;
+    }
+    @keyframes pulse {
+      from { opacity: 0.6; transform: scale(1); }
+      to   { opacity: 1;   transform: scale(1.12); }
+    }
+
+    /* ── Contenedor principal ── */
+    .stage {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 56px;
+      animation: fadeUp 0.9s cubic-bezier(.22,.68,0,1.2) both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Cabecera ── */
+    .header { text-align: center; }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--c-a);
+      opacity: 0.8;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.2rem, 8vw, 6.5rem);
+      letter-spacing: 0.06em;
+      line-height: 0.95;
+      background: linear-gradient(120deg, #ffffff 30%, var(--c-a) 70%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      margin-top: 14px;
+      font-size: 0.88rem;
+      color: var(--c-muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Divisor decorativo ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 260px;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--c-muted));
+    }
+    .divider::after {
+      background: linear-gradient(90deg, var(--c-muted), transparent);
+    }
+    .divider span {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--c-muted);
+      text-transform: uppercase;
+    }
+
+    /* ── Botones ── */
+    .btn-group {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 220px;
+      height: 200px;
+      border-radius: 20px;
+      text-decoration: none;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(.22,.68,0,1.4),
+                  box-shadow 0.3s ease;
+      animation: fadeUp 0.9s cubic-bezier(.22,.68,0,1.2) both;
+    }
+
+    .btn-xml { animation-delay: 0.15s; }
+    .btn-json { animation-delay: 0.28s; }
+
+    /* fondo glassmorphism */
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: opacity 0.3s;
+    }
+
+    .btn-xml::before {
+      background: linear-gradient(145deg, rgba(0,200,255,0.12), rgba(0,200,255,0.04));
+      border: 1px solid rgba(0,200,255,0.28);
+      box-shadow: 0 0 0 0 rgba(0,200,255,0);
+    }
+    .btn-json::before {
+      background: linear-gradient(145deg, rgba(255,60,110,0.12), rgba(255,60,110,0.04));
+      border: 1px solid rgba(255,60,110,0.28);
+    }
+
+    /* brillo superior */
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 1px;
+      border-radius: 50%;
+      transition: opacity 0.3s;
+    }
+    .btn-xml::after { background: linear-gradient(90deg, transparent, var(--c-a), transparent); }
+    .btn-json::after { background: linear-gradient(90deg, transparent, var(--c-b), transparent); }
+
+    .btn:hover {
+      transform: translateY(-10px) scale(1.04);
+    }
+    .btn-xml:hover { box-shadow: 0 24px 60px rgba(0,200,255,0.25), 0 0 0 1px rgba(0,200,255,0.4); }
+    .btn-json:hover { box-shadow: 0 24px 60px rgba(255,60,110,0.25), 0 0 0 1px rgba(255,60,110,0.4); }
+
+    .btn-icon {
+      position: relative;
+      font-size: 3rem;
+      line-height: 1;
+      z-index: 1;
+      transition: transform 0.3s;
+    }
+    .btn:hover .btn-icon { transform: scale(1.15); }
+
+    .btn-label {
+      position: relative;
+      z-index: 1;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.9rem;
+      letter-spacing: 0.1em;
+    }
+    .btn-xml .btn-label { color: var(--c-a); }
+    .btn-json .btn-label { color: var(--c-b); }
+
+    .btn-desc {
+      position: relative;
+      z-index: 1;
+      font-size: 0.7rem;
+      color: var(--c-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 0 16px;
+    }
+
+    /* badge "VERSIÓN" */
+    .badge {
+      position: absolute;
+      top: 14px; right: 14px;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .btn-xml .badge { background: rgba(0,200,255,0.15); color: var(--c-a); }
+    .btn-json .badge { background: rgba(255,60,110,0.15); color: var(--c-b); }
+
+    /* ── Footer ── */
+    footer {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 18px 40px;
+      background: linear-gradient(to top, rgba(3,6,15,0.95), transparent);
+      font-size: 0.75rem;
+      color: var(--c-muted);
+      letter-spacing: 0.06em;
+    }
+
+    .footer-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.3s;
+    }
+    .footer-name:hover { color: var(--c-text); }
+
+    .dot-a { color: var(--c-a); font-size: 1rem; }
+    .dot-b { color: var(--c-b); font-size: 1rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Fondo -->
+  <div class="grid-floor"></div>
+  <div class="glow glow-a"></div>
+  <div class="glow glow-b"></div>
+
+  <!-- Contenido principal -->
+  <main class="stage">
+    <div class="header">
+      <p class="eyebrow">Laboratorio · Hardware de Red</p>
+      <h1>Proyecto<br/>Dual Hardware</h1>
+      <p class="subtitle">Comparativa tecnológica XML+XSL vs JSON+JavaScript</p>
+    </div>
+
+    <div class="divider"><span>Elige una versión</span></div>
+
+    <div class="btn-group">
+      <!-- Botón XML -->
+      <a href="frn127.github.io/amai/inventario.xml" class="btn btn-xml">
+        <span class="badge">Clásico</span>
+        <span class="btn-icon">🗂️</span>
+        <span class="btn-label">XML + XSL</span>
+        <span class="btn-desc">Versión antigua<br/>con hoja de estilos</span>
+      </a>
+
+      <!-- Botón JSON -->
+      <a href="" class="btn btn-json">
+        <span class="badge">Moderno</span>
+        <span class="btn-icon">⚡</span>
+        <span class="btn-label">JSON + JS</span>
+        <span class="btn-desc">Versión moderna<br/>con Fetch dinámico</span>
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <span class="footer-name">
+      <span class="dot-a">◆</span>
+      Ángel Lax Riquelme — XML/XSLT
+    </span>
+    <span class="footer-name">
+      <span class="dot-b">◆</span>
+      Francisca Ismaela Muñoz Murcia — JSON/JS
+    </span>
+  </footer>
+
+</body>
+</html>
